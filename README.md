@@ -47,7 +47,7 @@ Until a key is added, the form tells visitors to call or email instead.
      All true as the site stands; confirm it matches your practice.
    - Whether you need to add your ABN and a "Liability limited by a scheme approved under Professional
      Standards Legislation" line to the footer and privacy page.
-3. **Point the domain.** `sitemap.xml` and `robots.txt` assume `https://www.nasihahlegal.com.au/`.
+3. **Point the domain.** `sitemap.xml` and `robots.txt` assume `https://nasihahlegal.com.au/`.
 4. **Review count.** `5.0 · 36 Google reviews` is baked into several pages — search `36 Google reviews`
    to update it as reviews come in.
 
