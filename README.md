@@ -51,6 +51,23 @@ Until a key is added, the form tells visitors to call or email instead.
 4. **Review count.** `5.0 · 36 Google reviews` is baked into several pages — search `36 Google reviews`
    to update it as reviews come in.
 
+## Adding a client review
+
+Reviews live in the carousel on `index.html` and `about.html`. To add one, copy an existing block
+inside `.reviews__track` and edit it — in **both** files, so the two carousels stay in step:
+
+```html
+<figure class="quote">
+  <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+  <blockquote>The trimmed review text.</blockquote>
+  <figcaption>Reviewer Name · Google review</figcaption>
+</figure>
+```
+
+Then update the `1 / 14` counter text in `[data-carousel-count]` on that page, and the
+`36 Google reviews` label if the total has moved. Only quote reviews that are genuinely public
+on the Google listing.
+
 ## Editing
 
 - **Brand colours and fonts** live at the top of `assets/css/site.css` as CSS variables.

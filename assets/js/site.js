@@ -62,6 +62,53 @@
 
   desktop.addEventListener('change', function () { setMenu(false); setDropdown(false); });
 
+  /* ------------------------------------------------------ reviews carousel */
+  document.querySelectorAll('[data-carousel]').forEach(function (root) {
+    var track = root.querySelector('.reviews__track');
+    var prev = root.querySelector('[data-carousel-prev]');
+    var next = root.querySelector('[data-carousel-next]');
+    var count = root.querySelector('[data-carousel-count]');
+    var cards = track.querySelectorAll('.quote');
+    if (!cards.length) return;
+
+    // Offset of each card relative to the first, so navigation targets an
+    // exact card rather than accumulating scrollBy deltas (which the CSS
+    // scroll-snap can swallow).
+    function offsets() {
+      var base = cards[0].offsetLeft;
+      return Array.prototype.map.call(cards, function (c) { return c.offsetLeft - base; });
+    }
+
+    function currentIndex() {
+      var pos = track.scrollLeft;
+      var offs = offsets();
+      var best = 0;
+      for (var i = 0; i < offs.length; i++) {
+        if (Math.abs(offs[i] - pos) < Math.abs(offs[best] - pos)) best = i;
+      }
+      return best;
+    }
+
+    function update() {
+      var max = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft < 8;
+      next.disabled = track.scrollLeft >= max - 8;
+      if (count) count.textContent = (currentIndex() + 1) + ' / ' + cards.length;
+    }
+
+    function go(dir) {
+      var offs = offsets();
+      var target = Math.min(Math.max(currentIndex() + dir, 0), cards.length - 1);
+      track.scrollBy({ left: offs[target] - track.scrollLeft, behavior: 'smooth' });
+    }
+
+    prev.addEventListener('click', function () { go(-1); });
+    next.addEventListener('click', function () { go(1); });
+    track.addEventListener('scroll', function () { window.requestAnimationFrame(update); });
+    window.addEventListener('resize', update);
+    update();
+  });
+
   /* ------------------------------------------------- enquiry form handling */
   var form = document.getElementById('enquiry-form');
   if (!form) return;
